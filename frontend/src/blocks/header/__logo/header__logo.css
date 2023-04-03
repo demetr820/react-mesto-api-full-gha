@@ -1,0 +1,18 @@
+.header__logo {
+  display: block;
+  width: 142px;
+  height: 33px;
+  flex-shrink: 0;
+  background: url("../../../images/logo.svg") top / cover no-repeat;
+  transition: 0.6s;
+  cursor: pointer;
+}
+.header__logo:hover {
+  background: url("../../../images/logo-hover.svg") top / cover no-repeat;
+}
+@media (max-width: 541px) {
+  .header__logo {
+    width: 103px;
+    height: 24px;
+  }
+}

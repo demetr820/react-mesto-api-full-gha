@@ -1,0 +1,22 @@
+.burger__line {
+  position: relative;
+  width: 24px;
+  height: 3px;
+  background-color: #fff;
+}
+.burger__line::before,
+.burger__line::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  width: 24px;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease-out;
+}
+.burger__line::before {
+  top: -8px;
+}
+.burger__line::after {
+  top: 8px;
+}

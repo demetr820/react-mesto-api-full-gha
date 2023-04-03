@@ -1,0 +1,14 @@
+.popup-image__picture {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+  vertical-align: top;
+}
+@media (max-width: 361px) {
+  .popup-image__picture {
+    max-width: 240px;
+    max-height: 299px;
+    object-fit: cover;
+    vertical-align: top;
+  }
+}

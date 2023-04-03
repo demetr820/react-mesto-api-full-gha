@@ -1,0 +1,8 @@
+.page__section_header {
+  margin: 45px auto 40px;
+}
+@media (max-width: 768px) {
+  .page__section_header {
+    margin: 0 auto 42px;
+  }
+}

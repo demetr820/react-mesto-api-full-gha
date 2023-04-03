@@ -1,0 +1,31 @@
+.profile__button_add {
+  width: 150px;
+  height: 50px;
+  border-width: 2px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.profile__button_add::after {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: url("../../../../images/add-icon.svg") top / cover no-repeat;
+}
+.profile__button_add:hover {
+  transition: 0.4s;
+  opacity: 0.6;
+}
+@media (max-width: 618px) {
+  .profile__button_add {
+    width: 100%;
+  }
+  .profile__button_add::after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url("../../../../images/add-icon-mobile.svg") top / cover
+      no-repeat;
+  }
+}

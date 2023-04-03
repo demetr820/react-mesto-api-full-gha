@@ -1,0 +1,8 @@
+.page__section_places {
+  margin: 0 auto 40px;
+}
+@media (max-width: 541px) {
+  .page__section_places {
+    margin: 0 auto 22px;
+  }
+}

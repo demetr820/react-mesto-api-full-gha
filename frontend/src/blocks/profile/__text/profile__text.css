@@ -1,0 +1,18 @@
+.profile__text {
+  flex-grow: 1;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: minmax(min-content, max-content) 24px;
+  grid-template-areas:
+    "title button-edit"
+    "desc  .";
+  row-gap: 12px;
+  column-gap: 19px;
+}
+@media (max-width: 541px) {
+  .profile__text {
+    grid-template-areas:
+      "title button-edit"
+      "desc  .";
+  }
+}
