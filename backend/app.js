@@ -8,9 +8,11 @@ const { errors } = require("celebrate");
 const handleErrors = require("./middlewares/handleErrors");
 const routes = require("./routes");
 const { PORT, DB_ADDRESS, LOCALHOST } = require("./config");
+const SOME_VAR = process.env;
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-// require("dotenv").config();
+require("dotenv").config();
 
+console.log(SOME_VAR);
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -21,7 +23,7 @@ const app = express();
 
 app.use(apiLimiter);
 app.use(helmet());
-app.use(cors({ origin: `${LOCALHOST}:3000` }));
+app.use(cors({ origin: `${LOCALHOST}:3001` }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(DB_ADDRESS, {
