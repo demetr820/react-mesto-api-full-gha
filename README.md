@@ -14,4 +14,4 @@ IP-адрес 51.250.30.26
 
 Frontend http://mestoproject.nomoredomains.work/
 
-Backend https://...
+Backend https://api.mestoproject.nomoredomains.work/

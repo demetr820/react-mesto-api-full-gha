@@ -1,7 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
-require("dotenv").config();
 
 const salt = 10;
 const User = require("../models/user");

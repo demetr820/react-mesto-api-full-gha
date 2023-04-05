@@ -9,7 +9,7 @@ const handleErrors = require("./middlewares/handleErrors");
 const routes = require("./routes");
 const { PORT, DB_ADDRESS, LOCALHOST } = require("./config");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-require("dotenv").config();
+// require("dotenv").config();
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
