@@ -6,12 +6,12 @@
 
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/demetr820/react-mesto-auth
 
 ## Ссылки на проект
 
-IP-адрес 51.250.30.26
+IP 51.250.30.26
 
 Frontend http://mestoproject.nomoredomains.work/
 
-Backend https://api.mestoproject.nomoredomains.work/
+Backend http://api.mestoproject.nomoredomains.work/

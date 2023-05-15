@@ -1,3 +1,4 @@
+const { PORT, DB_ADDRESS, LOCALHOST } = require("./config");
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
@@ -7,23 +8,25 @@ const bodyParser = require("body-parser");
 const { errors } = require("celebrate");
 const handleErrors = require("./middlewares/handleErrors");
 const routes = require("./routes");
-const { PORT, DB_ADDRESS, LOCALHOST } = require("./config");
-const SOME_VAR = process.env;
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-require("dotenv").config();
 
-console.log(SOME_VAR);
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   standardHeaders: true,
   legacyHeaders: false,
 });
+const allowedCors = [
+  "http://mestoproject.nomoredomains.work",
+  "https://mestoproject.nomoredomains.work",
+  "localhost:3000",
+  "localhost:3001",
+];
 const app = express();
 
 app.use(apiLimiter);
 app.use(helmet());
-app.use(cors({ origin: `${LOCALHOST}:3001` }));
+app.use(cors(allowedCors));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(DB_ADDRESS, {
