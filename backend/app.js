@@ -24,9 +24,9 @@ const allowedCors = [
 ];
 const app = express();
 
+app.use(cors(allowedCors));
 app.use(apiLimiter);
 app.use(helmet());
-app.use(cors(allowedCors));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(DB_ADDRESS, {

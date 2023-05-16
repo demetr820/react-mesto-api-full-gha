@@ -12,6 +12,6 @@
 
 IP 51.250.30.26
 
-Frontend http://mestoproject.nomoredomains.work/
+Frontend https://mestoproject.nomoredomains.work/
 
-Backend http://api.mestoproject.nomoredomains.work/
+Backend https://api.mestoproject.nomoredomains.work/
