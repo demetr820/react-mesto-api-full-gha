@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
-const { validateURL } = require("../utils/consts");
+const { validateSignin, validateSignup } = require("../utils/validation");
+
 const userRoutes = require("./users");
 const cardsRoutes = require("./cards");
 const { login, createUser } = require("../controllers/users");
@@ -12,30 +12,9 @@ router.get("/crash-test", () => {
     throw new Error("Сервер сейчас упадёт");
   }, 0);
 });
-router.post(
-  "/signup",
-  celebrate({
-    body: Joi.object().keys({
-      name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
-      avatar: Joi.string().custom(validateURL),
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
-  createUser
-);
+router.post("/signup", validateSignup, createUser);
 
-router.post(
-  "/signin",
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required(),
-    }),
-  }),
-  login
-);
+router.post("/signin", validateSignin, login);
 
 router.use(auth);
 

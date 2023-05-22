@@ -16,6 +16,7 @@ const auth = async (req, res, next) => {
     payload = await jwt.verify(token, JWT_SECRET);
   } catch (e) {
     next(new UnauthorizedError("Необходима авторизация"));
+    return;
   }
   req.user = payload;
   next();

@@ -1,22 +1,26 @@
-const validator = require('validator');
-const BadRequestError = require('../errors/BadRequestError');
+const validator = require("validator");
+const BadRequestError = require("../errors/BadRequestError");
 
-const status = {
-  ok: 200,
-  badRequest: 400,
-  unauthorized: 401,
-  forbidden: 403,
-  conflict: 409,
-  notFound: 404,
-  default: 500,
+const HTTP_STATUS = {
+  OK: 200,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  ALREADY_EXISTS: 409,
+  NOT_FOUND: 404,
+  SERVER_ERROR: 500,
 };
-
 const validateURL = (value) => {
   if (!validator.isURL(value, { require_protocol: true })) {
-    throw new BadRequestError('Неправильный формат ссылки');
+    throw new BadRequestError("Неправильный формат ссылки");
   }
   return value;
 };
 
-exports.status = status;
-exports.validateURL = validateURL;
+// module.exports = HTTP_STATUS;
+// exports.validateURL = validateURL;
+
+module.exports = {
+  HTTP_STATUS,
+  validateURL,
+};

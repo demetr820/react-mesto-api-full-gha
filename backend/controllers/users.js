@@ -14,33 +14,8 @@ const getUsers = (req, res, next) => {
     .then((users) => res.send({ data: users }))
     .catch(next);
 };
-
-const getMe = (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      if (!user) {
-        next(new NotFoundError("Карточка не найдена"));
-        return;
-      }
-      res.send({
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        email: user.email,
-        _id: user._id,
-      });
-    })
-    .catch((err) => {
-      if (err.name === "CastError") {
-        next(new NotFoundError("Пользователь не найден"));
-      } else {
-        next(err);
-      }
-    });
-};
-
-const getUser = (req, res, next) => {
-  User.findById(req.params.userId)
+const getUserByID = async (id, res, next) => {
+  User.findById(id)
     .then((user) => {
       if (!user) {
         next(new NotFoundError("Пользователь не найден"));
@@ -48,14 +23,20 @@ const getUser = (req, res, next) => {
       }
       res.send(user);
     })
-    .catch((err) => {
-      if (err.name === "CastError") {
-        next(new BadRequestError("Не верный ID"));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
+
+const getMeWrapper = (fn) => (req, res, next) => {
+  const id = req.user._id;
+  return fn(id, res, next);
+};
+const getUserWrapper = (fn) => (req, res, next) => {
+  const { userID } = req.params;
+  console.log(userID, req.params);
+  return fn(userID, res, next);
+};
+const getMe = getMeWrapper(getUserByID);
+const getUser = getUserWrapper(getUserByID);
 const createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
   bcrypt
@@ -84,59 +65,34 @@ const createUser = (req, res, next) => {
         return;
       }
       if (err.name === "ValidationError") {
-        next(new BadRequestError("Не корректные данные при создании карточки"));
+        next(new BadRequestError("Не корректные данные"));
         return;
       }
       next(err);
     });
 };
-
-const updateUser = (req, res, next) => {
+const updateProfile = (data, req, res, next) => {
+  User.findByIdAndUpdate(req.user._id, data, { new: true, runValidators: true })
+    .then((user) => {
+      if (!user) {
+        next(new NotFoundError("Пользователь не найден"));
+        return;
+      }
+      res.send(user);
+    })
+    .catch(next);
+};
+const updateUserWrapper = (fn) => (req, res, next) => {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { name, about },
-    { new: true, runValidators: true }
-  )
-    .then((user) => {
-      if (!user) {
-        next(new NotFoundError("Пользователь не найден"));
-        return;
-      }
-      res.send(user);
-    })
-    .catch((err) => {
-      if (err.name === "CastError" || err.name === "ValidationError") {
-        next(new BadRequestError("Ошибка в данных"));
-      } else {
-        next(err);
-      }
-    });
+  return fn({ name: name, about: about }, req, res, next);
 };
 
-const updateAvatar = (req, res, next) => {
+const updateAvatarWrapper = (fn) => (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    { new: true, runValidators: true }
-  )
-    .then((user) => {
-      if (!user) {
-        next(new NotFoundError("Пользователь не найден"));
-        return;
-      }
-      res.send(user);
-    })
-    .catch((err) => {
-      if (err.name === "CastError" || err.name === "ValidationError") {
-        next(new BadRequestError("Ошибка в данных"));
-      } else {
-        next(err);
-      }
-    });
+  return fn({ avatar }, req, res, next);
 };
-
+const updateUser = updateUserWrapper(updateProfile);
+const updateAvatar = updateAvatarWrapper(updateProfile);
 const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findOne({ email })

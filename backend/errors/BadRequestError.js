@@ -1,9 +1,9 @@
-const { status } = require('../utils/consts');
+const { HTTP_STATUS } = require("../utils/consts");
 
 class BadRequestError extends Error {
   constructor(message) {
     super(message);
-    this.status = status.badRequest;
+    this.status = HTTP_STATUS.BAD_REQUEST;
   }
 }
 

@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
-const bodyParser = require("body-parser");
 const { errors } = require("celebrate");
 const handleErrors = require("./middlewares/handleErrors");
 const routes = require("./routes");
@@ -27,8 +26,7 @@ const app = express();
 app.use(cors(allowedCors));
 app.use(apiLimiter);
 app.use(helmet());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 mongoose.connect(DB_ADDRESS, {
   useNewUrlParser: true,
 });

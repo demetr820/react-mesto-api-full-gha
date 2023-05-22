@@ -1,9 +1,9 @@
-const { status } = require('../utils/consts');
+const { HTTP_STATUS } = require("../utils/consts");
 
 class ConflictError extends Error {
   constructor(message) {
     super(message);
-    this.status = status.conflict;
+    this.status = HTTP_STATUS.ALREADY_EXISTS;
   }
 }
 
